@@ -13,4 +13,17 @@
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SudokuSolver\SudokuSolver.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestPuzzles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestPuzzles\EasyPuzzle.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
