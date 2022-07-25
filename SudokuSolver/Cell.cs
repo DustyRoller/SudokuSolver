@@ -2,12 +2,11 @@
 using System.Linq;
 
 namespace SudokuSolver
-
 {
     /// <summary>
     /// The Cell class represents a cell within the puzzle.
     /// </summary>
-    internal class Cell
+    internal class Cell : ICell
     {
         /// <summary>
         /// Gets or sets the value of the cell, will be 0 if it hasn't been solved yet.
@@ -19,7 +18,7 @@ namespace SudokuSolver
             {
                 if (value > 9)
                 {
-                    throw new SudokuSolverException($"Puzzle cell value cannot be greater than 9. {Coordinate}.");
+                    throw new SudokuSolverException($"Cell value cannot be greater than 9. {Coordinate}.");
                 }
 
                 cellValue = value;
@@ -39,12 +38,9 @@ namespace SudokuSolver
         /// <summary>
         /// Gets the possible values for this cell.
         /// </summary>
-        /// <remarks>
-        /// This calculates the integer partitions for the column and row
-        /// sections that this cell belongs to, and returns all of the common
-        /// values into a single list.
-        /// </remarks>
-        public List<uint> PossibleValues => new ();
+        public List<uint> PossibleValues => ColumnSection.PossibleValues.Intersect(
+                                                RowSection.PossibleValues.Intersect(SquareSection.PossibleValues))
+                                                         .ToList();
 
         /// <summary>
         /// Gets or sets the row section that this cell belongs to.
@@ -62,6 +58,18 @@ namespace SudokuSolver
         public Section SquareSection { get; set; }
 
         private uint cellValue = 0u;
+
+        /// <summary>
+        /// Attempt to solve this cell.
+        /// </summary>
+        public void Solve()
+        {
+            // If there is only one possible value then we can solve this cell.
+            if (PossibleValues.Count == 1)
+            {
+                CellValue = PossibleValues[0];
+            }
+        }
 
         /// <summary>
         /// Get a string representation of the current state of the cell.

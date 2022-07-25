@@ -88,15 +88,33 @@ namespace SudokuSolver.Parser
             // Get all the column and row sections.
             for (int i = 0; i < 9; ++i)
             {
-                puzzle.Columns.Add(new Section
-                {
-                    Cells = puzzle.Cells.Where(c => c.Coordinate.Y == i).ToList(),
-                });
+                // Get the column section cells.
+                var columnCells = puzzle.Cells.Where(c => c.Coordinate.Y == i).ToList();
 
-                puzzle.Rows.Add(new Section
+                var columnSection = new Section()
                 {
-                    Cells = puzzle.Cells.Where(c => c.Coordinate.X == i).ToList(),
-                });
+                    Cells = columnCells,
+                };
+
+                // Add the column section to the puzzle.
+                puzzle.Columns.Add(columnSection);
+
+                // Set the column section on each cell.
+                columnCells.ForEach(cc => cc.ColumnSection = columnSection);
+
+                // Get the row section cells.
+                var rowCells = puzzle.Cells.Where(c => c.Coordinate.X == i).ToList();
+
+                var rowSection = new Section()
+                {
+                    Cells = rowCells,
+                };
+
+                // Add the row section to the puzzle.
+                puzzle.Rows.Add(rowSection);
+
+                // Set the row section on each cell.
+                rowCells.ForEach(rc => rc.RowSection = rowSection);
             }
 
             // Get all of the 3x3 squares from within the puzzle,
@@ -109,21 +127,26 @@ namespace SudokuSolver.Parser
             foreach (var startingIndex in squareStartingIndexes)
             {
                 var index = startingIndex;
-                var cells = new List<Cell>();
+                var squareCells = new List<ICell>();
                 for (int x = 0; x < 3; ++x)
                 {
                     for (int y = 0; y < 3; ++y)
                     {
-                        cells.Add(puzzle.Cells[index]);
+                        squareCells.Add(puzzle.Cells[index]);
                         ++index;
                     }
                     index += 6;
                 }
 
-                puzzle.Squares.Add(new Section
+                var squareSection = new Section
                 {
-                    Cells = cells,
-                });
+                    Cells = squareCells,
+                };
+
+                // Set the square section on each cell.
+                squareCells.ForEach(sc => sc.SquareSection = squareSection);
+
+                puzzle.Squares.Add(squareSection);
             }
         }
 
