@@ -11,16 +11,6 @@ namespace SudokuSolver
     internal class Coordinate
     {
         /// <summary>
-        /// Gets the Coordinate's X position.
-        /// </summary>
-        public uint X { get; private set; }
-
-        /// <summary>
-        /// Gets the Coordinate's Y position.
-        /// </summary>
-        public uint Y { get; private set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Coordinate"/> class.
         /// </summary>
         /// <param name="x">The X coordinate.</param>
@@ -30,6 +20,16 @@ namespace SudokuSolver
             X = x;
             Y = y;
         }
+
+        /// <summary>
+        /// Gets the Coordinate's X position.
+        /// </summary>
+        public uint X { get; private set; }
+
+        /// <summary>
+        /// Gets the Coordinate's Y position.
+        /// </summary>
+        public uint Y { get; private set; }
 
         /// <summary>
         /// Does this Coordinate equal the given object.

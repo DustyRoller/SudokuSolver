@@ -6,20 +6,6 @@ namespace SudokuSolver.UnitTests
     [TestFixture]
     public class PuzzleUnitTests
     {
-        private const string TestPuzzleDir = "TestPuzzles";
-
-        [Test]
-        public void Puzzle_Solve_FailsToSolveEmptyPuzzle()
-        {
-            var testFile = Path.Combine(TestPuzzleDir, "EmptyPuzzle.txt");
-
-            Assert.IsTrue(File.Exists(testFile));
-
-            var puzzle = Parser.Parser.ParsePuzzle(testFile);
-
-            Assert.IsFalse(puzzle.Solve());
-        }
-
         [TestCase("EasyPuzzle.txt")]
         [TestCase("EasyPuzzle2.txt")]
         [TestCase("MediumPuzzle.txt")]
@@ -27,7 +13,8 @@ namespace SudokuSolver.UnitTests
         [TestCase("ExpertPuzzle.txt")]
         public void Puzzle_Solve_SuccessfullySolvesTestPuzzles(string testPuzzleFileName)
         {
-            var testFile = Path.Combine(TestPuzzleDir, testPuzzleFileName);
+            var testPuzzleDir = "TestPuzzles";
+            var testFile = Path.Combine(testPuzzleDir, testPuzzleFileName);
 
             Assert.IsTrue(File.Exists(testFile));
 

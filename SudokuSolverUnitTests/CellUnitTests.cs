@@ -17,7 +17,7 @@ namespace SudokuSolver.UnitTests
         }
 
         [Test]
-        public void Cell_PossibleValues_ReturnsAllPossibleValuesWithNoOtherSolvedCellsInSections()
+        public void Cell_GetPossibleValues_ReturnsAllPossibleValuesWithNoOtherSolvedCellsInSections()
         {
             var section = new Section
             {
@@ -39,11 +39,11 @@ namespace SudokuSolver.UnitTests
                 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u,
             };
 
-            CollectionAssert.AreEqual(expectedPossibleValues, cell.PossibleValues);
+            CollectionAssert.AreEqual(expectedPossibleValues, cell.GetPossibleValues());
         }
 
         [Test]
-        public void Cell_PossibleValues_ReturnsSubsetOfPossibleValuesWithSolvedCellsInSections()
+        public void Cell_GetPossibleValues_ReturnsSubsetOfPossibleValuesWithSolvedCellsInSections()
         {
             var unsolvedSection = new Section
             {
@@ -75,7 +75,7 @@ namespace SudokuSolver.UnitTests
                 4u, 5u, 6u, 7u, 8u, 9u,
             };
 
-            CollectionAssert.AreEqual(expectedPossibleValues, cell.PossibleValues);
+            CollectionAssert.AreEqual(expectedPossibleValues, cell.GetPossibleValues());
         }
 
         [Test]

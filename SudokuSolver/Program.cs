@@ -3,9 +3,12 @@ using System.Diagnostics;
 
 namespace SudokuSolver
 {
-    class Program
+    /// <summary>
+    /// The class containing the entry point for the application.
+    /// </summary>
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (args.Length != 1)
             {

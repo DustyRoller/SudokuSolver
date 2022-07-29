@@ -8,7 +8,7 @@ namespace SudokuSolver.UnitTests
     public class SectionUnitTests
     {
         [Test]
-        public void Section_PossibleValues_ReturnsAllPotentialValuesWithNoSolvedCells()
+        public void Section_GetPossibleValues_ReturnsAllPotentialValuesWithNoSolvedCells()
         {
             var section = new Section
             {
@@ -23,11 +23,11 @@ namespace SudokuSolver.UnitTests
                 1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u, 9u,
             };
 
-            CollectionAssert.AreEqual(expectedPossibleValues, section.PossibleValues);
+            CollectionAssert.AreEqual(expectedPossibleValues, section.GetPossibleValues());
         }
 
         [Test]
-        public void Section_PossibleValues_ReturnsValidPotentialValuesWithSolvedCells()
+        public void Section_GetPossibleValues_ReturnsValidPotentialValuesWithSolvedCells()
         {
             var section = new Section
             {
@@ -53,7 +53,7 @@ namespace SudokuSolver.UnitTests
                 2u, 4u, 6u, 7u, 8u, 9u,
             };
 
-            CollectionAssert.AreEqual(expectedPossibleValues, section.PossibleValues);
+            CollectionAssert.AreEqual(expectedPossibleValues, section.GetPossibleValues());
         }
 
         [Test]
@@ -78,8 +78,8 @@ namespace SudokuSolver.UnitTests
 
             var possibleValues = new List<uint> { 1, 2, };
 
-            cell1.SetupGet(c => c.PossibleValues).Returns(possibleValues);
-            cell2.SetupGet(c => c.PossibleValues).Returns(possibleValues);
+            cell1.Setup(c => c.GetPossibleValues()).Returns(possibleValues);
+            cell2.Setup(c => c.GetPossibleValues()).Returns(possibleValues);
 
             var section = new Section
             {
@@ -106,8 +106,8 @@ namespace SudokuSolver.UnitTests
             var cell1PossibleValues = new List<uint> { 1, 2, };
             var cell2PossibleValues = new List<uint> { 1, 2, 3, };
 
-            cell1.SetupGet(c => c.PossibleValues).Returns(cell1PossibleValues);
-            cell2.SetupGet(c => c.PossibleValues).Returns(cell2PossibleValues);
+            cell1.Setup(c => c.GetPossibleValues()).Returns(cell1PossibleValues);
+            cell2.Setup(c => c.GetPossibleValues()).Returns(cell2PossibleValues);
 
             var section = new Section
             {

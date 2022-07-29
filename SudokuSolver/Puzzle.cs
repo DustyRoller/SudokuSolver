@@ -5,33 +5,11 @@ using System.Text;
 
 namespace SudokuSolver
 {
-    class Puzzle
+    /// <summary>
+    /// Class representing a sudoku puzzle.
+    /// </summary>
+    internal class Puzzle
     {
-        /// <summary>
-        /// Gets all of the Cells that make up the puzzle.
-        /// </summary>
-        public ReadOnlyCollection<ICell> Cells => cells.AsReadOnly();
-
-        /// <summary>
-        /// Gets all of the column sections that make up the puzzle.
-        /// </summary>
-        public List<Section> Columns { get; set; } = new();
-
-        /// <summary>
-        /// Gets the number of currently unsolved puzzle cells.
-        /// </summary>
-        public int NumberOfUnsolvedCells => cells.Count(pc => !pc.Solved);
-
-        /// <summary>
-        /// Gets all of the row sections that make up the puzzle.
-        /// </summary>
-        public List<Section> Rows { get; set; } = new();
-
-        /// <summary>
-        /// Gets all of the square sections that make up the puzzle.
-        /// </summary>
-        public List<Section> Squares { get; set; } = new();
-
         /// <summary>
         /// List of all of the cells in the puzzle.
         /// </summary>
@@ -44,6 +22,31 @@ namespace SudokuSolver
         {
             cells = new List<ICell>();
         }
+
+        /// <summary>
+        /// Gets all of the Cells that make up the puzzle.
+        /// </summary>
+        public ReadOnlyCollection<ICell> Cells => cells.AsReadOnly();
+
+        /// <summary>
+        /// Gets or sets all of the column sections that make up the puzzle.
+        /// </summary>
+        public List<Section> Columns { get; set; } = new ();
+
+        /// <summary>
+        /// Gets the number of currently unsolved puzzle cells.
+        /// </summary>
+        public int NumberOfUnsolvedCells => cells.Count(pc => !pc.Solved);
+
+        /// <summary>
+        /// Gets or sets all of the row sections that make up the puzzle.
+        /// </summary>
+        public List<Section> Rows { get; set; } = new ();
+
+        /// <summary>
+        /// Gets or sets all of the square sections that make up the puzzle.
+        /// </summary>
+        public List<Section> Squares { get; set; } = new ();
 
         /// <summary>
         /// Add the given cell to this puzzle.
@@ -126,7 +129,7 @@ namespace SudokuSolver
         /// Recursively solve the puzzle by working our way through all of the
         /// given Cell's possible values until we get to a solved puzzle.
         /// </summary>
-        /// <param name="puzzleCells">The Cells to solve.</param>
+        /// <param name="cells">The Cells to solve.</param>
         /// <returns>True if the all the Cells are solved, otherwise false.</returns>
         private bool RecursivelySolvePuzzle(List<ICell> cells)
         {
@@ -140,16 +143,16 @@ namespace SudokuSolver
 
             // Check if this recursion path has provided us with more
             // possibilities to explore before continuing.
-            if (cells.All(pc => pc.PossibleValues.Any()))
+            if (cells.All(pc => pc.GetPossibleValues().Any()))
             {
                 // To save the amount of recursion required keep sorting
                 // the list by the number of possible values.
-                var orderedCells = cells.OrderBy(pc => pc.PossibleValues.Count)
+                var orderedCells = cells.OrderBy(pc => pc.GetPossibleValues().Count)
                                         .ToList();
                 var cell = orderedCells[0];
                 orderedCells.RemoveAt(0);
 
-                foreach (var possibleValue in cell.PossibleValues)
+                foreach (var possibleValue in cell.GetPossibleValues())
                 {
                     // Set the cells value to this possible value so that future
                     // cells will use this value when calculate their possible values.
