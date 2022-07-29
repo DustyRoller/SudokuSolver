@@ -8,6 +8,8 @@ namespace SudokuSolver
     /// </summary>
     internal class Cell : ICell
     {
+        private uint cellValue = 0u;
+
         /// <summary>
         /// Gets or sets the value of the cell, will be 0 if it hasn't been solved yet.
         /// </summary>
@@ -36,13 +38,6 @@ namespace SudokuSolver
         public Coordinate Coordinate { get; set; }
 
         /// <summary>
-        /// Gets the possible values for this cell.
-        /// </summary>
-        public List<uint> PossibleValues => ColumnSection.PossibleValues.Intersect(
-                                                RowSection.PossibleValues.Intersect(SquareSection.PossibleValues))
-                                                         .ToList();
-
-        /// <summary>
         /// Gets or sets the row section that this cell belongs to.
         /// </summary>
         public Section RowSection { get; set; }
@@ -57,7 +52,16 @@ namespace SudokuSolver
         /// </summary>
         public Section SquareSection { get; set; }
 
-        private uint cellValue = 0u;
+        /// <summary>
+        /// Gets the possible values for this cell.
+        /// </summary>
+        /// <returns>The possible values for this Cell.</returns>
+        public List<uint> GetPossibleValues()
+        {
+            return ColumnSection.GetPossibleValues().Intersect(
+                RowSection.GetPossibleValues().Intersect(SquareSection.GetPossibleValues()))
+                    .ToList();
+        }
 
         /// <summary>
         /// Attempt to solve this cell.
@@ -65,9 +69,10 @@ namespace SudokuSolver
         public void Solve()
         {
             // If there is only one possible value then we can solve this cell.
-            if (PossibleValues.Count == 1)
+            var possibleValues = GetPossibleValues();
+            if (possibleValues.Count == 1)
             {
-                CellValue = PossibleValues[0];
+                CellValue = possibleValues[0];
             }
         }
 

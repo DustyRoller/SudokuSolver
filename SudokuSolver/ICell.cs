@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace SudokuSolver
 {
+    /// <summary>
+    /// Interface for a Cell object.
+    /// </summary>
     internal interface ICell
     {
         /// <summary>
@@ -23,11 +26,6 @@ namespace SudokuSolver
         Coordinate Coordinate { get; set; }
 
         /// <summary>
-        /// Gets the possible values for this cell.
-        /// </summary>
-        List<uint> PossibleValues { get; }
-
-        /// <summary>
         /// Gets or sets the row section that this cell belongs to.
         /// </summary>
         Section RowSection { get; set; }
@@ -41,6 +39,12 @@ namespace SudokuSolver
         /// Gets or sets the square section that this cell belongs to.
         /// </summary>
         Section SquareSection { get; set; }
+
+        /// <summary>
+        /// Gets the possible values for this cell.
+        /// </summary>
+        /// <returns>The possible values for this Cell.</returns>
+        List<uint> GetPossibleValues();
 
         /// <summary>
         /// Attempt to solve this cell.

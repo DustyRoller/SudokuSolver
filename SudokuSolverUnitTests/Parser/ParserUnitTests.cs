@@ -13,6 +13,19 @@ namespace SudokuSolver.Parser.UnitTests
 
         private const string TestPuzzleDir = "TestPuzzles";
 
+        [SetUp]
+        public void BaseSetUp()
+        {
+            // If the test file already exists fail the unit test.
+            Assert.IsFalse(File.Exists(TestPuzzleFileName), $"Test file {TestPuzzleFileName} already exists");
+        }
+
+        [TearDown]
+        public void BaseTearDown()
+        {
+            File.Delete(TestPuzzleFileName);
+        }
+
         [Test]
         public void Parser_ParsePuzzle_FailsWithNonExistantFile()
         {
@@ -43,8 +56,6 @@ namespace SudokuSolver.Parser.UnitTests
             var ex = Assert.Throws<ArgumentException>(() => Parser.ParsePuzzle(TestPuzzleFileName));
 
             Assert.AreEqual("Puzzle file is empty. (Parameter 'puzzleFilePath')", ex.Message);
-
-            File.Delete(TestPuzzleFileName);
         }
 
         [Test]
@@ -68,8 +79,6 @@ namespace SudokuSolver.Parser.UnitTests
             var ex = Assert.Throws<ParserException>(() => Parser.ParsePuzzle(TestPuzzleFileName));
 
             Assert.AreEqual("Not all rows have 9 columns.", ex.Message);
-
-            File.Delete(TestPuzzleFileName);
         }
 
         [Test]
@@ -92,8 +101,6 @@ namespace SudokuSolver.Parser.UnitTests
             var ex = Assert.Throws<ParserException>(() => Parser.ParsePuzzle(TestPuzzleFileName));
 
             Assert.AreEqual("Puzzle does not have 9 rows.", ex.Message);
-
-            File.Delete(TestPuzzleFileName);
         }
 
         [Test]
@@ -116,8 +123,28 @@ namespace SudokuSolver.Parser.UnitTests
             var ex = Assert.Throws<ParserException>(() => Parser.ParsePuzzle(TestPuzzleFileName));
 
             Assert.AreEqual("Failed to parse cell value: ?", ex.Message);
+        }
 
-            File.Delete(TestPuzzleFileName);
+        [Test]
+        public void Parser_ParsePuzzle_FailsWithPuzzleWithNoSolvedCells()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+            sb.AppendLine("|-|-|-|-|-|-|-|-|-|");
+
+            File.WriteAllText(TestPuzzleFileName, sb.ToString());
+
+            var ex = Assert.Throws<ParserException>(() => Parser.ParsePuzzle(TestPuzzleFileName));
+
+            Assert.AreEqual("Puzzle contains no solved cells", ex.Message);
         }
 
         [Test]

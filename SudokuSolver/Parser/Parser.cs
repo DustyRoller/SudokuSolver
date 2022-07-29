@@ -57,6 +57,12 @@ namespace SudokuSolver.Parser
 
             ParseSections(puzzle);
 
+            // Ensure that there is at least one solved cell.
+            if (puzzle.NumberOfUnsolvedCells == 81)
+            {
+                throw new ParserException("Puzzle contains no solved cells");
+            }
+
             return puzzle;
         }
 
@@ -135,6 +141,7 @@ namespace SudokuSolver.Parser
                         squareCells.Add(puzzle.Cells[index]);
                         ++index;
                     }
+
                     index += 6;
                 }
 

@@ -1,5 +1,4 @@
-﻿using System;
-namespace SudokuSolver.Parser
+﻿namespace SudokuSolver.Parser
 {
     /// <summary>
     /// Exception class for exceptions throw whilst parsing a puzzle.

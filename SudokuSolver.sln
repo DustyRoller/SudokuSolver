@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32228.343
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{341A30A5-283B-4DA0-BE52-DBAF7A5A07BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{341A30A5-283B-4DA0-BE52-DBAF7A5A07BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolverUnitTests", "SudokuSolverUnitTests\SudokuSolverUnitTests.csproj", "{10DF49E8-3D40-48CB-AFBF-A6D6489D696C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudokuSolverUnitTests", "SudokuSolverUnitTests\SudokuSolverUnitTests.csproj", "{10DF49E8-3D40-48CB-AFBF-A6D6489D696C}"
+EndProject
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
