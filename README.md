@@ -1,5 +1,5 @@
 # SudokuSolver
-A .NET Core Solver for sudoku puzzles.
+A .NET Core solver for sudoku puzzles.
 
 ## Usage
 
