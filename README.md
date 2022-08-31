@@ -3,7 +3,7 @@ A .NET Core solver for sudoku puzzles.
 
 ## Usage
 
-Puzzles to be solved be in .txt files in the following format:
+Puzzles to be solved should be in .txt files in the following format:
 <pre>
 |-|4|2|-|-|5|-|-|6|
 |1|9|7|-|-|-|-|4|-|
